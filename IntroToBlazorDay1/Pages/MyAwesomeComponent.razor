@@ -1,0 +1,34 @@
+﻿<h3>MyAwesomeComponent</h3>
+
+<div>
+   <input type="text" placeholder="Ask a question" />    
+   <button class="btn btn-primary" @onclick="GetTheAwesomeness">Get Answer</button>
+</div>
+
+<div>
+   The answer to your question is: @answerToTheQuestionAsked
+</div>
+
+
+
+
+@code {    
+
+    public string answerToTheQuestionAsked { get; set; }
+
+    private void GetTheAwesomeness()
+    {
+        if (DateTime.Now.Second > 10 && DateTime.Now.Second < 30)
+        {
+            answerToTheQuestionAsked = "Blazor";
+        }
+        else if (DateTime.Now.Second > 30)
+        {
+            answerToTheQuestionAsked = ".NET";
+        }
+        else
+        {
+            answerToTheQuestionAsked = "Blazor.NET";
+        }
+    }
+}
