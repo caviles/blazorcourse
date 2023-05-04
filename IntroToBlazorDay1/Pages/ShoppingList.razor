@@ -1,0 +1,45 @@
+﻿@page "/shopping"
+<h3>ShoppingList</h3>
+
+<div>
+    <form @onsubmit="AddItem">
+        <input type="text" @bind="NewShoppingListItemText" />
+        <button>Add</button>
+    </form>
+
+    @foreach (var item in ShoppingListItems)
+    {        
+           <div @key="@item">
+                <input type="checkbox" @onchange="@(() => RemoveItem(item))" />
+                <span>@item.Text</span>
+           </div>        
+    }
+</div>
+
+
+@code {
+    public List<ShoppingListItemModel> ShoppingListItems { get; set; } = new List<ShoppingListItemModel>();
+
+    public string NewShoppingListItemText { get; set; } = "";
+
+    public void AddItem()
+    {
+        ShoppingListItems.Add(new ShoppingListItemModel { Text = NewShoppingListItemText, IsComplete = false, Id = Guid.NewGuid() });
+        NewShoppingListItemText = "";
+    }
+
+    public void RemoveItem(ShoppingListItemModel item)
+    {
+        ShoppingListItems.Remove(item);        
+    }
+
+    public class ShoppingListItemModel
+    {
+
+        public string Text { get; set; }
+
+        public bool IsComplete { get; set; }
+
+        public Guid Id { get; set; }
+    }
+}
